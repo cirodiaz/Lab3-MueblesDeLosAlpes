@@ -14,6 +14,7 @@ package com.losalpes.beans;
 
 import com.losalpes.entities.Mueble;
 import com.losalpes.entities.TipoMueble;
+import com.losalpes.excepciones.OperacionInvalidaException;
 import com.losalpes.servicios.IServicioCatalogoMockLocal;
 import java.io.Serializable;
 import java.util.List;
@@ -96,24 +97,46 @@ public class CatalogoBean implements Serializable
 
     /**
      * Agrega un nuevo mueble al sistema
+     * @throws com.losalpes.excepciones.OperacionInvalidaException
      */
-    public void agregarMueble()
+    public void agregarMueble() throws OperacionInvalidaException
     {
-        catalogo.agregarMueble(mueble);
+         try
+        {
+            catalogo.agregarMueble(mueble);
+
+        }
+        catch(OperacionInvalidaException e)
+        {
+            throw new OperacionInvalidaException(e.getMessage());
+            
+        }
+        
         mueble=new Mueble();
     }
 
     /**
      * Elimina un mueble del sistema
      * @param evento Evento que tiene como parámetro el ID del mueble
+     * @throws com.losalpes.excepciones.OperacionInvalidaException
      */
-    public void eliminarMueble(ActionEvent evento)
+    public void eliminarMueble(ActionEvent evento) throws OperacionInvalidaException
     {
         FacesContext context = FacesContext.getCurrentInstance();
         Map map = context.getExternalContext().getRequestParameterMap();
         long inventoryId = Long.parseLong((String) map.get("muebleId"));
 
-        catalogo.eliminarMueble(inventoryId);
+                 try
+        {
+            catalogo.eliminarMueble(inventoryId);
+
+        }
+        catch(OperacionInvalidaException e)
+        {
+            throw new OperacionInvalidaException(e.getMessage());
+            
+        }
+        
     }
     
     /**

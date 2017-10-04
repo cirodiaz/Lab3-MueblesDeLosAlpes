@@ -124,6 +124,7 @@ public class ServicioPersistenciaMock implements IServicioPersistenciaMockRemote
     /**
      * Permite crear un objeto dentro de la persistencia del sistema.
      * @param obj Objeto que representa la instancia de la entidad que se quiere crear.
+     * @throws com.losalpes.excepciones.OperacionInvalidaException
      */
     @Override
     public void create(Object obj) throws OperacionInvalidaException

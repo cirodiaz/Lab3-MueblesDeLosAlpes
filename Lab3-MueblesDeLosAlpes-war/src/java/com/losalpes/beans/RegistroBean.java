@@ -20,11 +20,11 @@ import com.losalpes.entities.TipoUsuario;
 import com.losalpes.entities.Usuario;
 import com.losalpes.excepciones.OperacionInvalidaException;
 import com.losalpes.servicios.IServicioRegistroMockLocal;
-import com.losalpes.servicios.ServicioRegistroMock;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -44,6 +44,7 @@ public class RegistroBean implements Serializable
     /**
      * Relación con la interfaz que provee los servicios de administración de usuarios
      */
+    @EJB
     private IServicioRegistroMockLocal usuarioServices;
 
     /**
@@ -89,9 +90,7 @@ public class RegistroBean implements Serializable
      * Constructor sin argumentos de la clase
      */
     public RegistroBean() 
-    {
-
-        usuarioServices = new ServicioRegistroMock();
+    {     
 
         paises = new ArrayList<Pais>();
         ciudades = new ArrayList<Ciudad>();   

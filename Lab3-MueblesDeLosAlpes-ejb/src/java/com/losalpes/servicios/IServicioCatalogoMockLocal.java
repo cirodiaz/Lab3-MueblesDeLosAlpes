@@ -13,6 +13,7 @@
 package com.losalpes.servicios;
 
 import com.losalpes.entities.Mueble;
+import com.losalpes.excepciones.OperacionInvalidaException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -21,20 +22,22 @@ import javax.ejb.Local;
  * 
  */
 @Local
-public interface IServicioCatalogoMockLocal
+public interface IServicioCatalogoMockLocal 
 {
 
     /**
      * Agrega un mueble al sistema
      * @param mueble Nuevo mueble
+     * @throws com.losalpes.excepciones.OperacionInvalidaException
      */
-    public void agregarMueble(Mueble mueble);
+    public void agregarMueble (Mueble mueble) throws OperacionInvalidaException;
 
     /**
      * Elimina un mueble del sistema
      * @param id Identificador único del mueble a eliminar
+     * @throws com.losalpes.excepciones.OperacionInvalidaException
      */
-    public void eliminarMueble(long id);
+    public void eliminarMueble(long id) throws OperacionInvalidaException;
 
     /**
      * Devuelve todos los muebles del sistema
@@ -45,7 +48,8 @@ public interface IServicioCatalogoMockLocal
     /**
      * Remueve un ejemplar del mueble (no el mueble)
      * @param id Identificador único del mueble
+     * @throws com.losalpes.excepciones.OperacionInvalidaException
      */
-    public void removerEjemplarMueble(long id);
+    public void removerEjemplarMueble(long id) throws OperacionInvalidaException;
 
 }

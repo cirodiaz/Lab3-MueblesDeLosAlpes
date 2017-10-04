@@ -6,12 +6,16 @@
 package com.losalpes.servicios;
 
 import com.losalpes.entities.Mueble;
+import com.losalpes.excepciones.OperacionInvalidaException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateful;
 
 /**
  *
- * @author Kurush
+ * @author ca.diazr1
  */
 @Stateful
 public class ServicioCatalogoMock implements IServicioCatalogoMockLocal, IServicioCatalogoMockRemote{
@@ -25,24 +29,61 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockLocal, IServic
      */
     private IServicioPersistenciaMockLocal persistencia;
     
+    /**
+     * Lista con los muebles del carrito
+     */
+    private ArrayList<Mueble> inventario;
+    
+    //-----------------------------------------------------------
+    // Constructor
+    //-----------------------------------------------------------
+    
+    /**
+     * Constructor sin argumentos de la clase
+     */
+    public ServicioCatalogoMock()
+    {
+        inventario = new ArrayList<Mueble>();
+        persistencia=new ServicioPersistenciaMock();
+    }
+    
     @Override
-    public void agregarMueble(Mueble mueble) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void agregarMueble(Mueble mueble) throws OperacionInvalidaException{
+        Mueble m;
+        m = (Mueble)persistencia.findById(Mueble.class, mueble.getReferencia());
+        if(m.getReferencia() == mueble.getReferencia()){
+            
+                throw new OperacionInvalidaException("El mueble de referencia '" + mueble.getReferencia()+ "' ya ha sido registrado en el sistema");
+            
+            
+        } else {           
+                persistencia.create(mueble);            
+        }
     }
 
     @Override
-    public void eliminarMueble(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void eliminarMueble(long id) throws OperacionInvalidaException{       
+            persistencia.delete(id);        
     }
 
     @Override
     public List<Mueble> darMuebles() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        inventario = (ArrayList<Mueble>) persistencia.findAll(Mueble.class);
+        return inventario;
     }
 
     @Override
-    public void removerEjemplarMueble(long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void removerEjemplarMueble(long id) throws OperacionInvalidaException{
+        
+        Mueble muebleEditar;
+        muebleEditar = (Mueble)persistencia.findById(Mueble.class, id);
+        if(muebleEditar.getCantidad()-1 >=0)
+        muebleEditar.setCantidad(muebleEditar.getCantidad()-1);
+        else 
+            throw new OperacionInvalidaException("El mueble de referencia '" + muebleEditar.getReferencia()+ "' no tiene unidades");
+        
+        persistencia.update(muebleEditar);
+        
     }
 
     // Add business logic below. (Right-click in editor and choose
