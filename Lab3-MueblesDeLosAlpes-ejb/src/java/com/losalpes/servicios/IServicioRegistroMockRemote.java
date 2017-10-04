@@ -15,16 +15,19 @@ package com.losalpes.servicios;
 import com.losalpes.entities.Usuario;
 import com.losalpes.excepciones.OperacionInvalidaException;
 import java.util.List;
+import javax.ejb.Remote;
 
 /**
  * Contrato funcional de los servicios de autenticación en el sistema
  * 
  */
+@Remote
 public interface IServicioRegistroMockRemote
 {
     /**
      * Verifica y registra un usuario en el sistema
      * @param u Usuario a persistir
+     * @throws com.losalpes.excepciones.OperacionInvalidaException
      */
     public void registrar(Usuario u)throws OperacionInvalidaException;
 

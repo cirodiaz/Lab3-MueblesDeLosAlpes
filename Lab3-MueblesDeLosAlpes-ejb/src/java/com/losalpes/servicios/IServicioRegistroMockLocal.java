@@ -15,17 +15,20 @@ package com.losalpes.servicios;
 import com.losalpes.entities.Usuario;
 import com.losalpes.excepciones.OperacionInvalidaException;
 import java.util.List;
+import javax.ejb.Local;
 
 /**
  * Contrato funcional de los servicios de autenticación en el sistema
  * 
  */
+@Local
 public interface IServicioRegistroMockLocal
 {
 
     /**
      * Verifica y registra un usuario en el sistema
      * @param u Usuario a persistir
+     * @throws com.losalpes.excepciones.OperacionInvalidaException
      */
     public void registrar(Usuario u)throws OperacionInvalidaException;
 
