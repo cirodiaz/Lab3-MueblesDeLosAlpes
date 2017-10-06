@@ -51,7 +51,7 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockLocal, IServic
     public void agregarMueble(Mueble mueble) throws OperacionInvalidaException{
         Mueble m;
         m = (Mueble)persistencia.findById(Mueble.class, mueble.getReferencia());
-        if(m.getReferencia() == mueble.getReferencia()){
+        if(m != null){
             
                 throw new OperacionInvalidaException("El mueble de referencia '" + mueble.getReferencia()+ "' ya ha sido registrado en el sistema");
             
@@ -62,13 +62,19 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockLocal, IServic
     }
 
     @Override
-    public void eliminarMueble(long id) throws OperacionInvalidaException{       
-            persistencia.delete(id);        
+    public void eliminarMueble(long id) throws OperacionInvalidaException{ 
+        Mueble m;
+        m = (Mueble) persistencia.findById(Mueble.class, id);
+        if(m != null){      
+               persistencia.delete(m);              
+        }
+                  
     }
 
     @Override
     public List<Mueble> darMuebles() {
         inventario = (ArrayList<Mueble>) persistencia.findAll(Mueble.class);
+        
         return inventario;
     }
 
