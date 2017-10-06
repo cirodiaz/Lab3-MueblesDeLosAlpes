@@ -108,6 +108,7 @@ public class CarritoBean implements Serializable
      */
     public void agregarItemCarrito(DragDropEvent ddEvent) {
         Mueble mueble = ((Mueble) ddEvent.getData());
+        mueble.setCantidad(1);
         carrito.agregarItem(mueble);
     }
 
