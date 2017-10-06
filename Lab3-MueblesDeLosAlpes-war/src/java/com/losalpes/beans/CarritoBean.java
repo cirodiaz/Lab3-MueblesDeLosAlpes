@@ -16,7 +16,6 @@ import com.losalpes.entities.Mueble;
 import com.losalpes.entities.Usuario;
 import com.losalpes.servicios.IServicioCarritoMockLocal;
 import com.losalpes.servicios.IServicioCatalogoMockLocal;
-import com.losalpes.servicios.ServicioCarritoMock;
 
 import java.io.Serializable;
 import java.util.List;
